@@ -116,7 +116,7 @@ const objectDrawings = {
 };
 
 function objectIllustration(object) {
-  return `<svg viewBox="0 0 128 120" aria-hidden="true" focusable="false">
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="128" height="120" viewBox="0 0 128 120" aria-hidden="true" focusable="false">
     <ellipse cx="64" cy="64" rx="55" ry="49" fill="#f1e4d3"/>
     <g fill="none" stroke="#684e36" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       ${objectDrawings[object]}

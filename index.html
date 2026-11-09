@@ -10,13 +10,13 @@
   <script src="script.js" defer></script>
 </head>
 <body>
-  <header class="site-header"><span class="brand-mark" aria-hidden="true">✦</span> 물건들의 속마음 <span class="demo-badge">프로토타입</span></header>
+  <header class="site-header"><span class="brand-mark" aria-hidden="true">✦</span> 물건들의 속마음</header>
   <main class="panel">
     <section id="intro" aria-labelledby="intro-title">
       <div class="hero-art" aria-hidden="true">
-        <span class="sticker sticker-left">🔌</span>
-        <span class="sticker sticker-center">🧊</span>
-        <span class="sticker sticker-right">🛏️</span>
+        <span class="sticker sticker-left" data-object="스탠드"></span>
+        <span class="sticker sticker-center" data-object="냉장고"></span>
+        <span class="sticker sticker-right" data-object="머그컵"></span>
         <span class="sparkle sparkle-left">✦</span>
         <span class="sparkle sparkle-right">✧</span>
       </div>
@@ -30,29 +30,35 @@
     </section>
 
     <section id="quiz" aria-labelledby="question-title" hidden>
-      <div class="progress-label"><span>테스트 진행률</span><span id="progress-text"></span></div>
+      <div class="progress-label" id="progress-label"><span>테스트 진행률</span><span id="progress-text"></span></div>
       <progress id="progress" max="16" value="1" aria-label="현재 문항"></progress>
-      <div class="question-identity">
-        <div id="question-art" class="question-art" aria-hidden="true"></div>
-        <div>
-          <p class="eyebrow" id="question-role">오늘 내가 된 물건</p>
-          <h2 id="question-title" tabindex="-1" aria-describedby="question-role question-situation"></h2>
+      <div class="question-layout">
+        <div class="question-identity">
+          <div id="question-art" class="question-art" aria-hidden="true"></div>
+          <div>
+            <p class="eyebrow" id="question-role">오늘 내가 된 물건</p>
+            <h2 id="question-title" tabindex="-1" aria-describedby="progress-label question-role question-situation"></h2>
+          </div>
+        </div>
+        <div class="question-content">
+          <p id="question-situation" class="question-situation"></p>
+          <p class="quiz-prompt">내 속마음에 가까운 대사를 골라 봐.</p>
+          <div id="choices" class="choices"></div>
+          <button class="secondary back" id="back" type="button" hidden>← 이전 문항</button>
         </div>
       </div>
-      <p id="question-situation" class="question-situation"></p>
-      <p class="quiz-prompt">내 속마음에 가까운 대사를 골라 봐.</p>
-      <div id="choices" class="choices"></div>
-      <button class="secondary back" id="back" type="button" hidden>← 이전 문항</button>
     </section>
 
     <section id="result" aria-labelledby="result-title" hidden>
       <div class="result-card">
-        <p class="eyebrow">나와 닮은 집 안 물건</p>
         <div id="result-art" class="result-art" aria-hidden="true"></div>
-        <p id="result-type" class="type"></p>
-        <h2 id="result-title" tabindex="-1"></h2>
-        <p id="result-quote" class="quote"></p>
-        <p id="result-description" class="description"></p>
+        <div class="result-content">
+          <p class="eyebrow">나와 닮은 집 안 물건</p>
+          <p id="result-type" class="type"></p>
+          <h2 id="result-title" tabindex="-1" aria-describedby="result-type result-description"></h2>
+          <p id="result-quote" class="quote"></p>
+          <p id="result-description" class="description"></p>
+        </div>
       </div>
       <div class="actions">
         <button id="share" class="primary" type="button" aria-expanded="false" aria-controls="share-options">결과 공유하기 <span aria-hidden="true">↗</span></button>
@@ -66,6 +72,6 @@
       </div>
     </section>
   </main>
-  <footer>재미로 즐기는 테스트예요. 문항과 결과 판정에는 데모용 규칙을 사용해요.</footer>
+  <footer>일상 속 물건으로 알아보는 재미용 성향 테스트</footer>
 </body>
 </html>

@@ -30,7 +30,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 30px 20px 20px;
+  padding: 20px clamp(12px, 4vw, 28px) 20px;
   background: radial-gradient(ellipse at 15% 5%, #e4d2ba90, transparent 56%),
               radial-gradient(ellipse at 96% 82%, #f1e5d285, transparent 52%);
 }
@@ -54,18 +54,10 @@ body {
   border-radius: 9px;
 }
 
-.demo-badge {
-  padding: 4px 9px;
-  border-radius: 99px;
-  background: #fffaf4c9;
-  color: var(--accent);
-  font-size: .7rem;
-}
-
 .panel {
-  width: min(100%, 560px);
+  width: min(100%, 600px);
   background: #fffcf7;
-  padding: clamp(20px, 6vw, 42px);
+  padding: clamp(16px, 5vw, 34px);
   border: 1px solid var(--line);
   border-radius: 24px;
   box-shadow: 0 20px 56px #54412d13;
@@ -93,9 +85,9 @@ body {
   aspect-ratio: 1;
   border: 1px solid #fffcf7;
   border-radius: 19px;
-  font-size: clamp(24px, 7vw, 35px);
   box-shadow: 0 7px 16px #684e3519;
 }
+.sticker svg { display: block; width: 90%; height: auto; }
 
 .sticker-left { transform: rotate(-8deg); background: color-mix(in srgb, var(--lavender) 32%, #fffcf7); }
 .sticker-center { transform: translateY(-6px) scale(1.2); background: #f7efe2; }
@@ -144,6 +136,7 @@ button {
 .primary:hover { background: #523a26; }
 .primary span { margin-left: 6px; }
 .secondary { background: #fffcf7; border-color: var(--line); }
+.secondary:disabled { opacity: .6; cursor: wait; }
 .secondary:hover, .choice:hover { background: #f6eddf; border-color: #b69876; }
 .progress-label { display: flex; justify-content: space-between; color: var(--accent); font-weight: 700; font-size: .84rem; }
 progress { display: block; width: 100%; height: 10px; margin-top: 8px; border: 0; border-radius: 99px; overflow: hidden; appearance: none; background: #eae0d3; color: var(--accent); }
@@ -155,13 +148,14 @@ progress::-moz-progress-bar { background: var(--accent); border-radius: 99px; }
   grid-template-columns: clamp(88px, 27vw, 118px) minmax(0, 1fr);
   align-items: center;
   gap: clamp(12px, 4vw, 22px);
-  margin: 18px 0 16px;
+  margin: 0;
   padding: 8px 14px 8px 8px;
   border: 1px solid #e8dcca;
   border-radius: 18px;
   background: #f8f0e4;
 }
 .question-art svg { display: block; width: 100%; height: auto; }
+.question-layout { display: grid; gap: 16px; margin-top: 16px; }
 .question-identity .eyebrow { margin-bottom: 3px; }
 #question-title { font-size: clamp(1.35rem, 5vw, 1.625rem); }
 .question-situation { margin: 0; font-size: clamp(1.1875rem, 4.5vw, 1.375rem); font-weight: 700; line-height: 1.5; word-break: keep-all; }
@@ -179,19 +173,18 @@ progress::-moz-progress-bar { background: var(--accent); border-radius: 99px; }
 .description { margin: 0; font-size: .91rem; }
 .actions { margin-top: 14px; display: grid; gap: 8px; }
 .share-options { display: flex; flex-wrap: wrap; gap: 8px; }
-.share-options button { flex: 1 0 auto; }
+.share-options button { flex: 1 1 180px; }
 #share-status { color: var(--muted); font-size: .83rem; margin: 0; line-height: 1.5; }
 #share-status:empty { display: none; }
 textarea { width: 100%; min-height: 90px; padding: 10px; border: 1px solid var(--line); border-radius: 10px; font: inherit; resize: vertical; }
 
 @media (max-width: 360px) {
-  body { padding-inline: 12px; }
   .hero-art { height: 112px; }
 }
 
 @media (min-width: 760px) {
-  body { padding-top: clamp(42px, 10vh, 100px); }
-  .panel:has(#intro:not([hidden])) { width: min(100%, 880px); }
+  body { padding-top: clamp(32px, 7vh, 72px); }
+  .panel { width: min(100%, 860px); }
   #intro {
     display: grid;
     grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
@@ -200,7 +193,20 @@ textarea { width: 100%; min-height: 90px; padding: 10px; border: 1px solid var(-
     text-align: left;
   }
   .hero-art { height: 240px; margin: 0; }
-  .sticker { width: 64px; font-size: 34px; }
+  .sticker { width: 76px; }
   .sparkle-left { top: 20%; }
   .sparkle-right { bottom: 20%; }
+  .question-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr); gap: 28px; margin-top: 24px; }
+  .question-identity {
+    grid-template-columns: minmax(0, 1fr);
+    align-self: start;
+    justify-items: center;
+    gap: 4px;
+    padding: 16px 10px 20px;
+    text-align: center;
+  }
+  .question-art { width: min(100%, 156px); }
+  .result-card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.65fr); align-items: center; gap: 24px; text-align: left; }
+  .result-art { width: min(100%, 214px); margin: 0 auto; }
+  .result-content { padding-block: 8px; }
 }

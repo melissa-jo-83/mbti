@@ -92,7 +92,7 @@ function scoreAnswers(answers) {
     totals[letter] += 1;
   });
 
-  // 데모에서 동점인 지표는 해당 지표의 마지막 응답으로 정한다.
+  // 동점인 지표는 해당 지표의 마지막 응답으로 정한다.
   const type = axes.map(axis => {
     const [left, right] = axis;
     if (totals[left] === totals[right]) return letters.findLast(letter => axis.includes(letter));
@@ -166,7 +166,7 @@ function renderResult() {
 
 function resultText() {
   const { type, title, emoji, quote, description } = currentResult;
-  return ["물건들의 속마음 · 데모 결과", `${emoji} ${type} · ${title}`, `“${quote}”`, description].join("\n");
+  return ["물건들의 속마음", `${emoji} ${type} · ${title}`, `“${quote}”`, description].join("\n");
 }
 
 async function copyShareContent() {
@@ -184,8 +184,10 @@ async function copyShareContent() {
   }
 }
 
-function saveResultCard() {
-  const { type, title, emoji, quote } = currentResult;
+async function saveResultCard() {
+  const result = currentResult;
+  const { type, title, object, quote } = result;
+  const saveButton = get("save-card");
   const canvas = document.createElement("canvas");
   canvas.width = 900;
   canvas.height = 560;
@@ -195,6 +197,22 @@ function saveResultCard() {
     return;
   }
 
+  const illustration = new Image();
+  illustration.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(objectIllustration(object))}`;
+  saveButton.disabled = true;
+  shareStatus.textContent = "결과 카드를 만드는 중이에요.";
+  try {
+    await Promise.all([illustration.decode(), document.fonts.ready]);
+  } catch {
+    if (currentResult === result && !shareOptions.hidden) {
+      shareStatus.textContent = "카드 이미지를 만들지 못했어요. 다시 시도해 주세요.";
+    }
+    return;
+  } finally {
+    saveButton.disabled = false;
+  }
+  if (currentResult !== result || get("result").hidden || shareOptions.hidden) return;
+
   context.fillStyle = "#f0e4d4";
   context.fillRect(0, 0, 900, 560);
   context.fillStyle = "#fffcf7";
@@ -203,13 +221,12 @@ function saveResultCard() {
   context.fillStyle = "#6c5035";
   const textFont = getComputedStyle(get("result-title")).fontFamily;
   context.font = `bold 29px ${textFont}`;
-  context.fillText("물건들의 속마음 · 데모 결과", 450, 105);
-  context.font = '104px "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif';
-  context.fillText(emoji, 450, 241);
+  context.fillText("물건들의 속마음", 450, 96);
+  context.drawImage(illustration, 354, 108, 192, 180);
   context.font = `bold 38px ${textFont}`;
   context.fillText(type, 450, 319);
   context.fillStyle = "#32291f";
-  context.font = `bold 55px ${textFont}`;
+  context.font = `bold 48px ${textFont}`;
   context.fillText(title, 450, 401, 740);
   context.font = `32px ${textFont}`;
   context.fillText(`“${quote}”`, 450, 466, 740);
@@ -222,6 +239,10 @@ function saveResultCard() {
   link.remove();
   shareStatus.textContent = "결과 카드 이미지 다운로드를 시작했어요.";
 }
+
+document.querySelectorAll("[data-object]").forEach(sticker => {
+  sticker.innerHTML = objectIllustration(sticker.dataset.object);
+});
 
 get("start").addEventListener("click", () => {
   answers = [];
