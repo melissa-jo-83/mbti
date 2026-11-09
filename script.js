@@ -84,6 +84,7 @@ const profiles = [
 ];
 
 const axes = ["EI", "SN", "TF", "JP"];
+const traitNames = { E: "외향", I: "내향", S: "감각", N: "직관", T: "사고", F: "감정", J: "판단", P: "인식" };
 
 function scoreAnswers(answers) {
   const totals = Object.fromEntries([...axes.join("")].map(letter => [letter, 0]));
@@ -99,7 +100,12 @@ function scoreAnswers(answers) {
     return totals[left] > totals[right] ? left : right;
   }).join("");
   const [, title, object, emoji, quote, description] = profiles.find(([types]) => types.includes(type));
-  return { type, title, object, emoji, quote, description };
+  const traits = axes.map(([left, right]) => ({
+    left,
+    right,
+    leftPercent: Math.round(100 * totals[left] / (totals[left] + totals[right]))
+  }));
+  return { type, title, object, emoji, quote, description, traits };
 }
 
 const get = id => document.getElementById(id);
@@ -151,12 +157,29 @@ function renderQuestion() {
 
 function renderResult() {
   currentResult = scoreAnswers(answers);
-  const { type, title, object, quote, description } = currentResult;
+  const { type, title, object, quote, description, traits } = currentResult;
   get("result-type").textContent = type;
   get("result-title").textContent = title;
   get("result-art").innerHTML = objectIllustration(object);
   get("result-quote").textContent = `“${quote}”`;
   get("result-description").textContent = description;
+  get("trait-list").innerHTML = traits.map(({ left, right, leftPercent }) => {
+    const rightPercent = 100 - leftPercent;
+    const note = leftPercent === rightPercent
+      ? "두 성향에 같은 비율로 응답했어요."
+      : `${traitNames[leftPercent > rightPercent ? left : right]} 쪽에 가까운 답변을 더 많이 골랐어요.`;
+
+    return `<li>
+      <div class="trait-labels">
+        <span>${left} ${traitNames[left]} <strong>${leftPercent}%</strong></span>
+        <span><strong>${rightPercent}%</strong> ${traitNames[right]} ${right}</span>
+      </div>
+      <div class="trait-track" aria-hidden="true">
+        <div class="trait-fill" style="width: ${leftPercent}%"></div>
+      </div>
+      <p class="trait-note">${note}</p>
+    </li>`;
+  }).join("");
   shareOptions.hidden = true;
   get("share").setAttribute("aria-expanded", "false");
   shareStatus.textContent = "";

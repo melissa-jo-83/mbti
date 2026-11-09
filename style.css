@@ -171,6 +171,14 @@ progress::-moz-progress-bar { background: var(--accent); border-radius: 99px; }
 .type { display: inline-block; margin: 0 0 8px; padding: 4px 10px; border-radius: 99px; background: color-mix(in srgb, var(--lavender) 24%, #fffcf7); color: #523a26; font-size: .85rem; font-weight: 700; letter-spacing: .08em; }
 .quote { margin: 10px 0 5px; color: #523a26; font-size: .9375rem; font-weight: 500; line-height: 1.5; word-break: keep-all; }
 .description { margin: 0; font-size: .91rem; }
+.trait-section { margin-top: 16px; padding: clamp(14px, 4vw, 25px); border: 1px solid var(--line); border-radius: 20px; text-align: left; }
+.trait-section h3 { margin: 0; font-size: 1.125rem; }
+.trait-intro, .trait-note { margin: 5px 0 0; color: var(--muted); font-size: .8125rem; line-height: 1.5; }
+.trait-list { display: grid; gap: 16px; margin: 16px 0 0; padding: 0; list-style: none; }
+.trait-labels { display: flex; justify-content: space-between; gap: 8px; font-size: .875rem; font-variant-numeric: tabular-nums; }
+.trait-labels span:last-child { text-align: right; }
+.trait-track { height: 8px; margin-top: 7px; overflow: hidden; border-radius: 99px; background: #e6d6c0; }
+.trait-fill { height: 100%; background: #be5733; }
 .actions { margin-top: 14px; display: grid; gap: 8px; }
 .share-options { display: flex; flex-wrap: wrap; gap: 8px; }
 .share-options button { flex: 1 1 180px; }
