@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="집 안 물건이 되어 속마음을 고르고 나와 닮은 물건을 찾아보세요.">
+  <title>물건들의 속마음 · MBTI 성향 테스트</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <header class="site-header"><span class="brand-mark" aria-hidden="true">✦</span> 물건들의 속마음 <span class="demo-badge">프로토타입</span></header>
+  <main class="panel">
+    <section id="intro" aria-labelledby="intro-title">
+      <div class="hero-art" aria-hidden="true">
+        <span class="sticker sticker-left">🔌</span>
+        <span class="sticker sticker-center">🧊</span>
+        <span class="sticker sticker-right">🛏️</span>
+        <span class="sparkle sparkle-left">✦</span>
+        <span class="sparkle sparkle-right">✧</span>
+      </div>
+      <div class="intro-content">
+        <p class="eyebrow intro-label">MBTI 성향 테스트</p>
+        <h1 id="intro-title" tabindex="-1">나는 무슨 물건일까?</h1>
+        <p class="intro-copy">집 안 물건이 되어 네 속마음을 골라 봐.<br>너와 닮은 물건은 뭘까?</p>
+        <button class="primary" id="start" type="button">테스트 시작 <span aria-hidden="true">→</span></button>
+        <p class="meta">16문항 · 물건 캐릭터 12종</p>
+      </div>
+    </section>
+
+    <section id="quiz" aria-labelledby="question-title" hidden>
+      <div class="progress-label"><span>테스트 진행률</span><span id="progress-text"></span></div>
+      <progress id="progress" max="16" value="1" aria-label="현재 문항"></progress>
+      <div id="question-emoji" class="question-emoji" aria-hidden="true"></div>
+      <p id="question-object" class="eyebrow"></p>
+      <h2 id="question-title" tabindex="-1"></h2>
+      <p class="quiz-prompt">내 속마음에 가까운 대사를 골라 봐.</p>
+      <div id="choices" class="choices"></div>
+      <button class="secondary back" id="back" type="button" hidden>← 이전 문항</button>
+    </section>
+
+    <section id="result" aria-labelledby="result-title" hidden>
+      <div class="result-card">
+        <p class="eyebrow">나와 닮은 집 안 물건</p>
+        <div id="result-emoji" class="result-emoji" aria-hidden="true"></div>
+        <p id="result-type" class="type"></p>
+        <h2 id="result-title" tabindex="-1"></h2>
+        <p id="result-quote" class="quote"></p>
+        <p id="result-description" class="description"></p>
+      </div>
+      <div class="actions">
+        <button id="share" class="primary" type="button" aria-expanded="false" aria-controls="share-options">결과 공유하기 <span aria-hidden="true">↗</span></button>
+        <div id="share-options" class="share-options" hidden>
+          <button id="save-card" class="secondary" type="button">결과 카드 저장</button>
+          <button id="copy" class="secondary" type="button">결과 텍스트 복사</button>
+        </div>
+        <p id="share-status" role="status"></p>
+        <textarea id="copy-fallback" aria-label="직접 복사할 내용" readonly hidden></textarea>
+        <button id="restart" class="secondary" type="button">↺ 다시 하기</button>
+      </div>
+    </section>
+  </main>
+  <footer>재미로 즐기는 테스트예요. 문항과 결과 판정에는 데모용 규칙을 사용해요.</footer>
+</body>
+</html>
