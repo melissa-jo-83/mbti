@@ -6,6 +6,7 @@
   <meta name="description" content="집 안 물건이 되어 속마음을 고르고 나와 닮은 물건을 찾아보세요.">
   <title>물건들의 속마음 · MBTI 성향 테스트</title>
   <link rel="stylesheet" href="style.css">
+  <script src="illustrations.js" defer></script>
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -31,9 +32,14 @@
     <section id="quiz" aria-labelledby="question-title" hidden>
       <div class="progress-label"><span>테스트 진행률</span><span id="progress-text"></span></div>
       <progress id="progress" max="16" value="1" aria-label="현재 문항"></progress>
-      <div id="question-emoji" class="question-emoji" aria-hidden="true"></div>
-      <p id="question-object" class="eyebrow"></p>
-      <h2 id="question-title" tabindex="-1"></h2>
+      <div class="question-identity">
+        <div id="question-art" class="question-art" aria-hidden="true"></div>
+        <div>
+          <p class="eyebrow" id="question-role">오늘 내가 된 물건</p>
+          <h2 id="question-title" tabindex="-1" aria-describedby="question-role question-situation"></h2>
+        </div>
+      </div>
+      <p id="question-situation" class="question-situation"></p>
       <p class="quiz-prompt">내 속마음에 가까운 대사를 골라 봐.</p>
       <div id="choices" class="choices"></div>
       <button class="secondary back" id="back" type="button" hidden>← 이전 문항</button>
@@ -42,7 +48,7 @@
     <section id="result" aria-labelledby="result-title" hidden>
       <div class="result-card">
         <p class="eyebrow">나와 닮은 집 안 물건</p>
-        <div id="result-emoji" class="result-emoji" aria-hidden="true"></div>
+        <div id="result-art" class="result-art" aria-hidden="true"></div>
         <p id="result-type" class="type"></p>
         <h2 id="result-title" tabindex="-1"></h2>
         <p id="result-quote" class="quote"></p>
